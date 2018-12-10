@@ -137,7 +137,7 @@ public class FileStorage extends CordovaPlugin {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int nRead;
         byte[] data = new byte[1024];
-        while ((nRead = is.read(data, 0, data.length)) != -1) {
+        while ((nRead = inStream.read(data, 0, data.length)) != -1) {
           buffer.write(data, 0, nRead);
         }
         buffer.flush();
