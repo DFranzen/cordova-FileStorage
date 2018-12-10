@@ -1,5 +1,6 @@
 package com.dfranzen.cordova;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileNotFoundException;
@@ -132,12 +133,20 @@ public class FileStorage extends CordovaPlugin {
 	    } else {
 		ContentResolver contentResolver = cordova.getActivity().getContentResolver();
 		InputStream inStream = contentResolver.openInputStream(uri);
+
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[1024];
+        while ((nRead = is.read(data, 0, data.length)) != -1) {
+          buffer.write(data, 0, nRead);
+        }
+        buffer.flush();
 		
-		java.util.Scanner s = new java.util.Scanner(inStream).useDelimiter("\\A");
-		String data = s.hasNext() ? s.next() : "";
-		inStream.close();
+		// java.util.Scanner s = new java.util.Scanner(inStream).useDelimiter("\\A");
+		// String data = s.hasNext() ? s.next() : "";
+		// inStream.close();
 		
-		callbackContext.success(data);
+		callbackContext.success(buffer.toByteArray());
 	    }
 	} catch (FileNotFoundException e) {
 	    callbackContext.error(e.getMessage());
