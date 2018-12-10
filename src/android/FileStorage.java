@@ -157,16 +157,16 @@ public class FileStorage extends CordovaPlugin {
     
     public void chooseFile(CallbackContext callbackContext) {
 	Intent pickIntent = new Intent(Intent.ACTION_PICK);
-	pickIntent.setType("text/*");
+	pickIntent.setType("application/pdf");
 	pickIntent.addCategory(Intent.CATEGORY_OPENABLE);
 	
 	Intent dropboxIntent = new Intent(Intent.ACTION_GET_CONTENT);
 	dropboxIntent.setPackage("com.dropbox.android");
-	dropboxIntent.setType("text/*");
+	dropboxIntent.setType("application/pdf");
 	dropboxIntent.addCategory(Intent.CATEGORY_OPENABLE);
 
 	Intent documentIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT); //ACTION_CREATE_DOCUMENT);  //ACTION_OPEN_DOCUMENT  //ACTION_GET_CONTENT
-	documentIntent.setType("text/*");
+	documentIntent.setType("application/pdf");
         documentIntent.addCategory(Intent.CATEGORY_OPENABLE);
 	
 	Intent chooserIntent = Intent.createChooser(pickIntent, "Select a file to add");
